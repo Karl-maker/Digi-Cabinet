@@ -1,0 +1,11 @@
+{
+  "name": "digi_cabinet",
+  "version": "1.0.0",
+  "description": "Backend Node.js RESTapi for Digi-Cabinet System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karl-Johan Baiely 2018121008, Ajay Williams 2018021003, Chantel Boatswain 2016121008, Bjore Nero 2018011030",
+  "license": "ISC"
+}
