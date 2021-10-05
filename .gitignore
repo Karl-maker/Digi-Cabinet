@@ -1,17 +1,17 @@
 # dependencies
-/api/node_modules
+/backend/node_modules
 
 #keys
-/api/keys
+/backend/keys
 
 # debugging
-/api/logs
+/backend/logs
 
 #logo-blend file
 /logo_development
 
 # misc
-/api/.env
+/backend/.env
 .prettierrc
 
 npm-debug.log*
