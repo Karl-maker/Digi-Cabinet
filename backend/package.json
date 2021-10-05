@@ -7,5 +7,13 @@
     "dev": "nodemon --experimental-modules ./src/index.mjs"
   },
   "author": "Karl-Johan Baiely 2018121008, Ajay Williams 2018021003, Chantel Boatswain 2016121008, Bjore Nero 2018011030",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "morgan-json": "^1.1.0",
+    "nodemon": "^2.0.13",
+    "winston": "^3.3.3"
+  }
 }
