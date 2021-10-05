@@ -1,6 +1,6 @@
-# Project Digi-Cabinet RESTful API Instructions
+# Project Digi-Cabinet Instructions
 
-### On use of this node.js application the .env files must be filled to connect to MongoDB database and any other dependencies needed such as Redis and other services (example: Nodemailer)
+### On use of the node.js application the .env files must be filled to connect to MongoDB database and any other dependencies needed such as Redis and other services (example: Nodemailer)
 
 #### Fill in all .env variables.
 
