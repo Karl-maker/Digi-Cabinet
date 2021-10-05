@@ -16,6 +16,7 @@ const env = process.env.NODE_ENV || "development";
 const defaults = {
   environment: {
     NODE_ENV: env || "development",
+    RESOURCE_PATH: process.env.RESOURCE_PATH || "../container",
   },
 };
 

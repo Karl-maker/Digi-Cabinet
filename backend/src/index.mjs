@@ -26,10 +26,10 @@ const server = createServer(app);
 initialize(app, { express: express });
 
 server.listen(config.server.PORT, config.server.HOST, () => {
-    logger.info({
-        message: `Digi-Cabinet Server Started and Listening on ${server.address().address}:${
-          server.address().port
-        } in a ${config.environment.NODE_ENV} environment`,
-        timestamp: `${new Date().toString()}`,
-    });
+  logger.info({
+    message: `Digi-Cabinet Server Started and Listening on ${
+      server.address().address
+    }:${server.address().port} in a ${config.environment.NODE_ENV} environment`,
+    timestamp: `${new Date().toString()}`,
+  });
 });

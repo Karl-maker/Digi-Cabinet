@@ -10,6 +10,9 @@
 #logo-blend file
 /logo_development
 
+#containers
+/backend/container
+
 # misc
 /backend/.env
 .prettierrc
