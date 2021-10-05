@@ -11,7 +11,7 @@
 /logo_development
 
 #containers
-/backend/container
+/backend/container/resources
 
 # misc
 /backend/.env
