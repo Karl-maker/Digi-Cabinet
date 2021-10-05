@@ -1,22 +1,17 @@
 # dependencies
-/node_modules
+/api/node_modules
 
 #keys
-/keys
+/api/keys
 
 # debugging
-/logs
+/api/logs
 
 #logo-blend file
 /logo_development
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env
+/api/.env
 .prettierrc
 
 npm-debug.log*
