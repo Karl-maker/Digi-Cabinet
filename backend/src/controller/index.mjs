@@ -4,9 +4,15 @@ All routes to controller meets here..
 
 */
 
-import express from "express";
-import test from "./controllers/test.mjs";
-const router = express.Router();
+import auth from "./controllers/auth-controller.mjs";
 
-router.use("/test", test);
-export default router;
+function routes(router){
+
+    return router.use((req, res, next) => {
+        router.use(auth(router));
+
+        next();
+    });
+};
+
+export default routes;

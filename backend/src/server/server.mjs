@@ -51,7 +51,7 @@ const initialize = (app, { express }) => {
         path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
         )
     );
-    app.use("/api", routes);
+    app.use("/api", routes(express.Router()));
     app.use("*", (req, res, next) =>{
         next({name: "NotFound", message: "Resource Not Found"});
     });
