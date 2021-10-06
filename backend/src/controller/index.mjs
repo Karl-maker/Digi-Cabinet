@@ -8,11 +8,7 @@ import auth from "./controllers/auth-controller.mjs";
 
 function routes(router){
 
-    return router.use((req, res, next) => {
-        router.use(auth(router));
-
-        next();
-    });
+    return router.use(auth(router));
 };
 
 export default routes;
