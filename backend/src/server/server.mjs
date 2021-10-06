@@ -3,12 +3,14 @@ import httpLogger from "../log/http-logger.mjs";
 import routes from "../controller/index.mjs";
 import config from "../config/config.mjs";
 import { corsOrigins } from "../middleware/cors.mjs";
+import errorHandler from "../middleware/error-handler.mjs";
 ///-----------------------------------------------
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import cors from "cors";
+import compression from "compression";
 
 //utilites
 import path, { dirname } from "path";
@@ -23,6 +25,7 @@ const limiter = rateLimit({
   });
 const initialize = (app, { express }) => {
 
+    app.use(compression());
     app.use(httpLogger); 
     app.use(helmet());
     app.use(limiter);
@@ -42,17 +45,20 @@ const initialize = (app, { express }) => {
     ----------------------------------------------------------------
     */
 
-
-    app.use("/api", routes);
     app.use(
         "/container",
         express.static(
-          path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
+        path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
         )
     );
-
+    app.use("/api", routes);
+    app.use("*", (req, res, next) =>{
+        next({name: "NotFound", message: "Resource Not Found"});
+    });
+    
+    //Error Handler
+    app.use(errorHandler);
 }
-
 
 export { initialize };
   
