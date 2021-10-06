@@ -9,8 +9,13 @@
   "author": "Karl-Johan Baiely 2018121008, Ajay Williams 2018021003, Chantel Boatswain 2016121008, Bjore Nero 2018011030",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.4.1",
+    "helmet": "^4.6.0",
     "morgan": "^1.10.0",
     "morgan-json": "^1.1.0",
     "nodemon": "^2.0.13",
