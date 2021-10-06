@@ -22,6 +22,14 @@ function errorHandler(err, req, res, next) {
                 timestamp: new Date().toString(),
                 });
                 return res.status(401).json({ message: "Unauthorized" });
+            case err.message.includes("validation failed"):
+                //400 Errors
+                return res.status(400).json({
+                message: {
+                    prompt: "Validation Error",
+                    field: errorFormatter(err.message),
+                },
+                });
             default:
                 logger.error({
                 message: err.message,
