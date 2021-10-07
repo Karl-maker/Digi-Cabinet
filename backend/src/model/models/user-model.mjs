@@ -12,6 +12,7 @@ const MIN_NAME = 1;
 const MAX_NAME = 100;
 const MIN_EMAIL = 3;
 const MAX_EMAIL = 400;
+const DEFAULT_PROFILE_URL_PATH = "/container/default/profile/profile-pic-icon-1.png";
 
 //--------------------------------------------------------------------------------
 
@@ -77,7 +78,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     select: false,
     },
-    profile_picture: { type: String, required: false },
+    profile_picture: { type: String, required: false, default: DEFAULT_PROFILE_URL_PATH },
     is_confirmed: { type: Boolean, default: 0 },
     use_email_notification: { type: Boolean, default: 1 },
     token_code: { type: String },
