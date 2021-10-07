@@ -7,12 +7,13 @@ Model for users for user can be teachers OR administration
 */
 
 import mongoose from "mongoose";
+import config from "../../config/config.mjs"
 
 const MIN_NAME = 1;
 const MAX_NAME = 100;
 const MIN_EMAIL = 3;
 const MAX_EMAIL = 400;
-const DEFAULT_PROFILE_URL_PATH = "/container/default/profile/profile-pic-icon-1.png";
+const DEFAULT_PROFILE_URL_PATH = config.resource.DEFAULT_IMAGE_PATH;
 
 //--------------------------------------------------------------------------------
 
