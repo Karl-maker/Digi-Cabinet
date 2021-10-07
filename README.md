@@ -2,9 +2,9 @@
 
 ### On use of the node.js application the .env files must be filled to connect to MongoDB database and any other dependencies needed such as Redis and other services (example: Nodemailer)
 
-#### Fill in all .env variables.
+#### Create a file named .env in backend folder and copy and past then fill in all variables in .example.env (varibles with * by it are optional)
 
-## Scripts:
+#### in terminal follow instructions to run backend:
 
-1. #### production: "npm run production"
-2. #### development: "npm run development"
+0. #### cd backend
+1. #### npm run dev
