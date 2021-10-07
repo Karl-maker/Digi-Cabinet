@@ -21,6 +21,7 @@
     "morgan": "^1.10.0",
     "morgan-json": "^1.1.0",
     "nodemon": "^2.0.13",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "zlib": "^1.0.5"
   }
 }

@@ -4,6 +4,7 @@ import routes from "../controller/index.mjs";
 import config from "../config/config.mjs";
 import { corsOrigins } from "../middleware/cors.mjs";
 import errorHandler from "../middleware/error-handler.mjs";
+import { compressorCheck, compressorStrategy } from "../util/compression.mjs";
 ///-----------------------------------------------
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
@@ -17,6 +18,7 @@ import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const COMPRESSOR_STRATEGY = "DEFAULT";
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const limiter = rateLimit({
@@ -25,7 +27,15 @@ const limiter = rateLimit({
   });
 const initialize = (app, { express }) => {
 
-    app.use(compression());
+    app.use(compression({
+      level: config.optimization.COMPRESSION_LEVEL,
+      threshold: config.optimization.COMPRESSION_THRESHOLD_LIMIT,
+      chunkSize: config.optimization.COMPRESSION_CHUNKSIZE,
+      memLevel: config.optimization.COMPRESSION_MEMLEVEL,
+      windowBits: config.optimization.COMPRESSION_WINDOWBITS,
+      strategy: compressorStrategy(COMPRESSOR_STRATEGY),
+      filter: compressorCheck(compression),
+    }));
     app.use(httpLogger); 
     app.use(helmet());
     app.use(limiter);
