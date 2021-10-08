@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --experimental-modules ./src/index.mjs"
   },
-  "author": "Karl-Johan Baiely 2018121008, Ajay Williams 2018021003, Chantel Boatswain 2016121008, Bjore Nero 2018011030",
+  "author": "Karl-Johan Bailey",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
