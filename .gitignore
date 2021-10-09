@@ -15,9 +15,14 @@
 
 # misc
 /backend/.env
-/backend/.env.development.local
-/backend/.env.development
 /backend/.env.local
+/backend/.env.development
+/backend/.env.development.local
+/backend/.env.test
+/backend/.env.test.local
+/backend/.env.production
+/backend/.env.production.local
+
 .prettierrc
 
 npm-debug.log*
