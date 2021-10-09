@@ -17,11 +17,14 @@ import { createServer } from "http";
 import config from "./config/config.mjs";
 import { initialize } from "./server/server.mjs";
 import logger from "./log/server-logger.mjs";
+import { connectDB } from "./helper/db.mjs";
 
 const app = express();
 const server = createServer(app);
 
 //----START-----
+
+connectDB();
 
 initialize(app, { express: express });
 

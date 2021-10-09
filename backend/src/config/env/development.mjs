@@ -1,33 +1,44 @@
 import dotenv from "dotenv";
+import fs from "fs";
 dotenv.config();
+
+const ENV = process.env;
+// const envConfig = dotenv.parse(fs.readFileSync('.env.development.local'));
+
+// for (const k in envConfig) {
+//   ENV[k] = envConfig[k]
+// }
 
 export default {
   //Server API:
   server: {
-    PROTOCOL: process.env.DEV_PROTOCOL || "http",
-    HOST: process.env.DEV_API_HOST || "localhost",
-    PORT: process.env.DEV_API_PORT || 8000,
+    PROTOCOL: ENV.PROTOCOL || "http",
+    HOST: ENV.API_HOST || "localhost",
+    PORT: ENV.API_PORT || 8000,
   },
 
   debug: {
-    LOG_FILE: process.env.DEV_LOG_FILE || "./logs/server.log", //Relative to Log folder in source
-    LOG_MAXSIZE: process.env.DEV_LOG_MAXSIZE || 5242880, //5MB
-    LOG_MAXFILES: process.env.DEV_LOG_MAXFILE || 5,
+    LOG_FILE: ENV.LOG_FILE || "./logs/server.log", //Relative to Log folder in source
+    LOG_MAXSIZE: ENV.LOG_MAXSIZE || 5242880, //5MB
+    LOG_MAXFILES: ENV.LOG_MAXFILE || 5,
   },
 
   resource: {
-    DEFAULT_IMAGE_PATH: process.env.DEV_DEFAULT_IMAGE_PATH ||  "/container/default/profile/profile-pic-icon-1.png"
+    DEFAULT_IMAGE_PATH: ENV.DEFAULT_IMAGE_PATH ||  "/container/default/profile/profile-pic-icon-1.png"
+  },
+
+  database: {
+    DB_CONNECT: ENV.DB_CONNECT,
   },
 
   optimization: {
-    RATE_LIMIT_WINDOWMS: process.env.DEV_RATE_LIMIT_WINDOWMS || 15, //In minutes
-    RATE_LIMIT_MAX: process.env.DEV_RATE_LIMIT_MAX || 100,
-    COMPRESSION_LEVEL: process.env.DEV_COMPRESSION_LEVEL || 6,
-    COMPRESSION_MEMLEVEL: process.env.DEV_COMPRESSION_MEMLEVEL || 8,
-    COMPRESSION_CHUNKSIZE: process.env.DEV_COMPRESSION_CHUNKSIZE || 16384,
-    COMPRESSION_WINDOWBITS: process.env.DEV_COMPRESSION_WINDOWBITS || 15,
-    COMPRESSION_THRESHOLD_LIMIT:
-      process.env.DEV_COMPRESSION_THRESHOLD_LIMIT || 0, //in bytes
+    RATE_LIMIT_WINDOWMS: ENV.RATE_LIMIT_WINDOWMS || 15, //In minutes
+    RATE_LIMIT_MAX: ENV.RATE_LIMIT_MAX || 100,
+    COMPRESSION_LEVEL: ENV.COMPRESSION_LEVEL || 6,
+    COMPRESSION_MEMLEVEL: ENV.COMPRESSION_MEMLEVEL || 8,
+    COMPRESSION_CHUNKSIZE: ENV.COMPRESSION_CHUNKSIZE || 16384,
+    COMPRESSION_WINDOWBITS: ENV.COMPRESSION_WINDOWBITS || 15,
+    COMPRESSION_THRESHOLD_LIMIT: ENV.COMPRESSION_THRESHOLD_LIMIT || 0, //in bytes
   },
 
 };
