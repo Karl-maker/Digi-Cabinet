@@ -21,9 +21,9 @@ function register(req, res, next) {
     service
     .user
     .create(req)
-    .then(() => {
+    .then((user) => {
         logger.info({message: "New Account Created", timestamp: new Date().toString()})
-        res.status(200).json({ message: "Registration Successful" });
+        res.status(200).json({ message: "Registration Successful", user: user });
     })
     .catch((err) => {
         next(err);

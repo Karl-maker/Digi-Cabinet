@@ -57,7 +57,9 @@ async function create(req){
         throw { name: "UnexpectedError", message: err.message };
     }
 
-  return;
+    new_user.password = null;
+
+  return new_user;
 }
 
 //----------Utils---------------------------------
