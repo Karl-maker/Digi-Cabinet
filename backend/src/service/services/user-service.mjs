@@ -22,7 +22,7 @@ async function create(req){
       },
     };
   }
-  
+
   //Check Password
   if (confirmed_password !== password) {
     throw {
@@ -49,12 +49,11 @@ async function create(req){
 
   //--------------------------------Send Email To Confirm User-----------------------------------
 
-//   try {
-//     await getConfirmationEmail(new_user);
-//   } catch (err) {
-//     throw { name: "UnexpectedError", message: err.message };
-//   }
+    //   try {
+    //     await getConfirmationEmail(new_user);
+    //   } catch (err) {
+    //     throw { name: "UnexpectedError", message: err.message };
+    //   }
 
   return;
-  // Our register logic ends here
 }
