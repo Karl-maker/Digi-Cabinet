@@ -1,4 +1,6 @@
 import { db } from "../../helper/db.mjs";
+import transporter from "../../helper/email.mjs";
+import config from "../../config/config.mjs";
 
 import bcrypt from "bcrypt";
 
@@ -49,11 +51,56 @@ async function create(req){
 
   //--------------------------------Send Email To Confirm User-----------------------------------
 
-    //   try {
-    //     await getConfirmationEmail(new_user);
-    //   } catch (err) {
-    //     throw { name: "UnexpectedError", message: err.message };
-    //   }
+    try {
+        await getConfirmationEmail(new_user);
+    } catch (err) {
+        throw { name: "UnexpectedError", message: err.message };
+    }
 
   return;
 }
+
+//----------Utils---------------------------------
+
+async function sendEmail({ subject, message, email }) {
+    transporter.sendMail({
+      from: config.email.SENDER_MAIL_ADDRESS,
+      to: email,
+      subject: subject,
+      html: message,
+    });
+  }
+
+async function getConfirmationEmail(user) {
+  
+    const PIN = await (Math.random() + 1).toString(36).substring(5);
+  
+    try {
+      await db.user.findOneAndUpdate(
+        { email: user.email },
+        {
+          token_code: PIN,
+          token_expiration: new Date(Date.now() + 1 * 60 * 1000),
+        }
+      );
+    } catch (err) {
+      throw { name: "UnexpectedError", message: err.message };
+    }
+  
+    try {
+      await sendEmail({
+        subject: "Confirmation Email",
+        message: `Hi ${
+          user.first_name
+        }, your confirmation code is ${PIN}`,
+        email: user.email,
+      });
+    } catch (err) {
+      throw { name: "UnexpectedError", message: err.message };
+    }
+  
+    return `Hi ${
+      user.first_name 
+    }, your confirmation code has been sent to your Email`;
+  }
+  

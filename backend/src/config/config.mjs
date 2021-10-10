@@ -46,6 +46,12 @@ const variables = {
     COMPRESSION_THRESHOLD_LIMIT: ENV.COMPRESSION_THRESHOLD_LIMIT || 0, //in bytes
   },
 
+  email: {
+    SENDER_EMAIL_SERVICE: ENV.SENDER_EMAIL_SERVICE || "Gmail",
+    SENDER_EMAIL_ADDRESS: ENV.SENDER_EMAIL_ADDRESS,
+    SENDER_EMAIL_PASSWORD: ENV.SENDER_EMAIL_PASSWORD,
+  },
+
 };
 
 const config = { ...variables };
