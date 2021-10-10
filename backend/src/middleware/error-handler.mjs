@@ -22,6 +22,16 @@ function errorHandler(err, req, res, next) {
                 timestamp: new Date().toString(),
                 });
                 return res.status(401).json({ message: "Unauthorized" });
+            case err.name === "AlreadyExist":
+                //400 Errors
+                return res.status(422).json({
+                message: err.message,
+                });
+            case err.name === "ValidationFailed":
+                //400 Errors
+                return res.status(400).json({
+                message: err.message,
+                });
             case err.message.includes("validation failed"):
                 //400 Errors
                 return res.status(400).json({

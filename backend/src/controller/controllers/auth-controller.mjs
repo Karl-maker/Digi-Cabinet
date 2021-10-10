@@ -1,3 +1,4 @@
+import service from "../../service/index.mjs";
 const TOP_ROUTE = "/auth";
 
 function controller(router){
@@ -16,6 +17,7 @@ function controller(router){
         next();
     };  
 };
+
 
 
 export default controller;
