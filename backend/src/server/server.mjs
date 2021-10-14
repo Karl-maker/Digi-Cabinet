@@ -22,12 +22,12 @@ const COMPRESSOR_STRATEGY = "DEFAULT";
 const jsonParser = bodyParser.json();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const limiter = rateLimit({
-    windowMs: config.optimization.RATE_LIMIT_WINDOWMS * 60 * 1000,
-    max: config.optimization.RATE_LIMIT_MAX,
-  });
+  windowMs: config.optimization.RATE_LIMIT_WINDOWMS * 60 * 1000,
+  max: config.optimization.RATE_LIMIT_MAX,
+});
 const initialize = (app, { express }) => {
-
-    app.use(compression({
+  app.use(
+    compression({
       level: config.optimization.COMPRESSION_LEVEL,
       threshold: config.optimization.COMPRESSION_THRESHOLD_LIMIT,
       chunkSize: config.optimization.COMPRESSION_CHUNKSIZE,
@@ -35,40 +35,40 @@ const initialize = (app, { express }) => {
       windowBits: config.optimization.COMPRESSION_WINDOWBITS,
       strategy: compressorStrategy(COMPRESSOR_STRATEGY),
       filter: compressorCheck(compression),
-    }));
-    app.use(httpLogger); 
-    app.use(helmet());
-    app.use(limiter);
-    app.use(urlencodedParser);
-    app.use(jsonParser);
-    app.use(cookieParser());
-    app.use(
-        cors({
-          origin: corsOrigins.origin,
-          optionSuccessStatus: 200,
-        })
-      );
+    })
+  );
+  app.use(httpLogger);
+  app.use(helmet());
+  app.use(limiter);
+  app.use(urlencodedParser);
+  app.use(jsonParser);
+  app.use(cookieParser());
+  app.use(
+    cors({
+      origin: corsOrigins.origin,
+      optionSuccessStatus: 200,
+    })
+  );
 
-    /*
+  /*
     ----------------------------------------------------------------
     *****************Static and API routes below********************
     ----------------------------------------------------------------
     */
 
-    app.use(
-        "/container",
-        express.static(
-        path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
-        )
-    );
-    app.use("/api", routes(express.Router()));
-    app.use("*", (req, res, next) =>{
-        next({name: "NotFound", message: "Resource Not Found"});
-    });
-    
-    //Error Handler
-    app.use(errorHandler);
-}
+  app.use(
+    "/container",
+    express.static(
+      path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
+    )
+  );
+  app.use("/api", routes(express.Router()));
+  app.use("*", (req, res, next) => {
+    next({ name: "NotFound", message: "Resource Not Found" });
+  });
+
+  //Error Handler
+  app.use(errorHandler);
+};
 
 export { initialize };
-  

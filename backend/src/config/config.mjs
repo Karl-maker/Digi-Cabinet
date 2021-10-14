@@ -29,7 +29,9 @@ const variables = {
   },
 
   resource: {
-    DEFAULT_IMAGE_PATH: ENV.DEFAULT_IMAGE_PATH ||  "/container/default/profile/profile-pic-icon-1.png"
+    DEFAULT_IMAGE_PATH:
+      ENV.DEFAULT_IMAGE_PATH ||
+      "/container/default/profile/profile-pic-icon-1.png",
   },
 
   database: {
@@ -51,7 +53,6 @@ const variables = {
     SENDER_EMAIL_ADDRESS: ENV.SENDER_EMAIL_ADDRESS,
     SENDER_EMAIL_PASSWORD: ENV.SENDER_EMAIL_PASSWORD,
   },
-
 };
 
 const config = { ...variables };

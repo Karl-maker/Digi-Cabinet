@@ -1,7 +1,7 @@
 import user from "./services/user-service.mjs";
 
 const service = {
-    user,
-  };
-  
+  user,
+};
+
 export default service;
