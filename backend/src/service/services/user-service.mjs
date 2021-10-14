@@ -1,5 +1,5 @@
 import { db } from "../../helper/db.mjs";
-import transporter from "../../helper/email.mjs";
+import { transporter, sendEmail } from "../../helper/email.mjs";
 import config from "../../config/config.mjs";
 
 import bcrypt from "bcrypt";
@@ -71,15 +71,6 @@ async function create(req) {
 }
 
 //----------Utils---------------------------------
-
-async function sendEmail({ subject, message, email }) {
-  transporter.sendMail({
-    from: config.email.SENDER_MAIL_ADDRESS,
-    to: email,
-    subject: subject,
-    html: message,
-  });
-}
 
 async function getConfirmationEmail(user) {
   const PIN = await (Math.random() + 1).toString(36).substring(5);

@@ -7,10 +7,15 @@ const registerLimiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 10,
 });
+const loginLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 5,
+});
 
 function controller(router) {
   return (req, res, next) => {
-    router.post(`/register`, registerLimiter, register);
+    router.post(`${TOP_ROUTE}/register`, registerLimiter, register);
+    router.post(`${TOP_ROUTE}/login`, loginLimiter, login);
 
     next();
   };
@@ -30,5 +35,7 @@ function register(req, res, next) {
       next(err);
     });
 }
+
+function login(req, res, next) {}
 
 export default controller;

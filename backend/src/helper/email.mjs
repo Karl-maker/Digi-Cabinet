@@ -9,4 +9,13 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export default transporter;
+const sendEmail = ({ subject, message, email }) => {
+  transporter.sendMail({
+    from: config.email.SENDER_MAIL_ADDRESS,
+    to: email,
+    subject: subject,
+    html: message,
+  });
+};
+
+export { transporter, sendEmail };
