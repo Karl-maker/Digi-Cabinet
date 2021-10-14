@@ -53,6 +53,10 @@ const variables = {
     SENDER_EMAIL_ADDRESS: ENV.SENDER_EMAIL_ADDRESS,
     SENDER_EMAIL_PASSWORD: ENV.SENDER_EMAIL_PASSWORD,
   },
+
+  bcrypt: {
+    SALTORROUNDS: 10,
+  },
 };
 
 const config = { ...variables };

@@ -4,11 +4,24 @@ import config from "../../config/config.mjs";
 
 import bcrypt from "bcrypt";
 
-const saltOrRounds = 10;
+const saltOrRounds = config.bcrypt.SALTORROUNDS;
 
 export default {
   create,
+  delete: _delete,
+  getByID,
+  getManyByName,
 };
+
+//GET
+
+async function _delete(req) {}
+
+async function getManyByName(req) {}
+
+async function getByID(req) {
+  const id = req.params.id;
+}
 
 async function create(req) {
   // Get user input and sanitize it
