@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+const MAX_TITLE = 20;
+const MAX_DESCRIPTION = 1000;
+
 //--------------------------------------------------------------------------------
 
 const MisdemeanorSchema = new mongoose.Schema({
@@ -11,10 +14,23 @@ const MisdemeanorSchema = new mongoose.Schema({
     type: String,
     required: [true, "Institution ID Required"],
   },
+  title:{
+    type: String,
+    required: [true, "Add A Short Title e.g. Punched A Teacher"],
+    maxlength: [
+      MAX_TITLE,
+      `Title Should Have Less Than ${MAX_TITLE} Characters`,
+    ],
+  }
   description: {
     type: String,
-    required: false,
+    required: [true, "Give A Detailed Description"],
+    maxlength: [
+      MAX_DESCRIPTION,
+      `Description Should Have Less Than ${MAX_DESCRIPTION} Characters`,
+    ],
   },
+
   is_confirmed: {
     type: Boolean,
     default: 0,
