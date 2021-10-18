@@ -14,14 +14,14 @@ const MisdemeanorSchema = new mongoose.Schema({
     type: String,
     required: [true, "Institution ID Required"],
   },
-  title:{
+  title: {
     type: String,
     required: [true, "Add A Short Title e.g. Punched A Teacher"],
     maxlength: [
       MAX_TITLE,
       `Title Should Have Less Than ${MAX_TITLE} Characters`,
     ],
-  }
+  },
   description: {
     type: String,
     required: [true, "Give A Detailed Description"],
@@ -30,7 +30,6 @@ const MisdemeanorSchema = new mongoose.Schema({
       `Description Should Have Less Than ${MAX_DESCRIPTION} Characters`,
     ],
   },
-
   is_confirmed: {
     type: Boolean,
     default: 0,

@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
 
-
 //--------------------------------------------------------------------------------
 
 const InstitutionSchema = new mongoose.Schema({
-  name: { type: String, required: [true, "Enter Name Of Insitutition"] trim: true },
+  name: { type: String, required: [true, "Enter Name Of Insitutition"] },
   info: {
     description: { type: String, required: false, trim: true },
     number: { type: String, required: false, trim: true },
