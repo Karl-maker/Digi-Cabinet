@@ -5,6 +5,7 @@ import config from "../config/config.mjs";
 import { corsOrigins } from "../middleware/cors.mjs";
 import errorHandler from "../middleware/error-handler.mjs";
 import { compressorCheck, compressorStrategy } from "../util/compression.mjs";
+import { authorize } from "../middleware/authorization.mjs";
 ///-----------------------------------------------
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
@@ -62,7 +63,7 @@ const initialize = (app, { express }) => {
       path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
     )
   );
-  app.use("/api", routes(express.Router()));
+  app.use("/api", authorize, routes(express.Router()));
   app.use("*", (req, res, next) => {
     next({ name: "NotFound", message: "Resource Not Found" });
   });

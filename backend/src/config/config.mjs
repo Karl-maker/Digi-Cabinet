@@ -4,9 +4,19 @@ Author: Karl-Johan Bailey 05/10/2021
 This file must controll configuration throughout the app with environment awareness.
 */
 import dotenv from "dotenv-flow";
+import fs, { readFile } from "fs";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 const ENV = process.env;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+//------Utilities------------
+
+const readENVFile = (location) => {
+  return fs.readFileSync(path.resolve(__dirname, location), "utf8");
+};
 
 //Default Variables
 
@@ -56,6 +66,26 @@ const variables = {
 
   bcrypt: {
     SALTORROUNDS: 10,
+  },
+
+  jwt: {
+    ISSUER: process.env.JWT_ISSUER || "Software Engineers United",
+    ALGORITHM: process.env.JWT_ALGORITHM || "RS256",
+    IS_HTTPS: process.env.JWT_IS_HTTPS || false, //This is usually false
+    REFRESH_TOKEN_LIFE: process.env.REFRESH_TOKEN_LIFE || 90,
+    ACCESS_TOKEN_LIFE: process.env.ACCESS_TOKEN_LIFE || 10000,
+    ACCESS_TOKEN_PUBLIC_KEY: readENVFile(
+      process.env.ACCESS_TOKEN_PUBLIC_KEY || `../../keys/access-public.key`
+    ),
+    ACCESS_TOKEN_PRIVATE_KEY: readENVFile(
+      process.env.ACCESS_TOKEN_PRIVATE_KEY || "../../keys/access-private.key"
+    ),
+    REFRESH_TOKEN_PUBLIC_KEY: readENVFile(
+      process.env.REFRESH_TOKEN_PUBLIC_KEY || "../../keys/refresh-public.key"
+    ),
+    REFRESH_TOKEN_PRIVATE_KEY: readENVFile(
+      process.env.REFRESH_TOKEN_PRIVATE_KEY || "../../keys/refresh-private.key"
+    ),
   },
 };
 

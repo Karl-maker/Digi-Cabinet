@@ -45,4 +45,6 @@ function register(req, res, next) {
     });
 }
 
+function authenticate(req, res, next) {}
+
 export default controller;

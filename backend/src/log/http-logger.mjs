@@ -12,7 +12,7 @@ morgan.token(
 );
 morgan.token("user", (req) => {
   if (req.user) {
-    return req.user.username;
+    return req.user.email;
   }
   return "guest";
 });
