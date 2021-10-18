@@ -84,12 +84,15 @@ const UserSchema = new mongoose.Schema({
     required: false,
     default: DEFAULT_PROFILE_URL_PATH,
   },
-  contact_info: {},
+  contact_info: {
+    email: { type: String, required: false, trim: true },
+    number: { type: String, required: false, trim: true },
+  },
   is_confirmed: { type: Boolean, default: 0 },
   use_email_notification: { type: Boolean, default: 1 },
   token_code: { type: String },
   token_expiration: { type: Date },
-  registered_date: { type: Date, default: Date.now() },
+  created_at: { type: Date, default: Date.now() },
 });
 
 const User = mongoose.model("Users", UserSchema);
