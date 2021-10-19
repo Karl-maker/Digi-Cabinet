@@ -12,4 +12,51 @@ function controller(router) {
   };
 }
 
+function deleteInstitution(req, res, next) {
+  service.institution
+    .delete(req)
+    .then(() => {
+      res.status(200).json({ message: "Institution Deleted" });
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+function getInstitutionById(req, res, next) {
+  service.institution
+    .getById(req)
+    .then((results) => {
+      res.status(200).json({ results });
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+function searchInstitution(req, res, next) {
+  service.institution
+    .getManyByName(req)
+    .then((results) => {
+      res.status(200).json({ results });
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+function createInstitution(req, res, next) {
+  service.institution
+    .create(req)
+    .then((results) => {
+      res.status(200).json({
+        message: "Institution Created Successfully",
+        results: results,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
 export default controller;

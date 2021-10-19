@@ -39,11 +39,11 @@ async function getManyByName(req) {
   //default
   if (!order) {
     get_order = {
-      username: "asc",
+      first_name: "asc",
     };
   } else {
     get_order = {
-      username: order,
+      first_name: order,
     };
   }
 

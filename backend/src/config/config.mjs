@@ -39,6 +39,9 @@ const variables = {
   },
 
   resource: {
+    DEFAULT_INSTITUTION_PATH:
+      ENV.DEFAULT_INSTITUTION_PATH ||
+      "/container/default/institution/school-icon.png",
     DEFAULT_IMAGE_PATH:
       ENV.DEFAULT_IMAGE_PATH ||
       "/container/default/profile/profile-pic-icon-1.png",
