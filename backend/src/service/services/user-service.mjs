@@ -15,12 +15,103 @@ export default {
 
 //GET
 
-async function _delete(req) {}
+async function _delete(req) {
+  //Need Password and Email...
+}
 
-async function getManyByName(req) {}
+async function getManyByName(req) {
+  const page_size = parseInt(req.query.page_size, 10);
+  const page_number = parseInt(req.query.page_number, 10);
+  const q = req.query.q.toLowerCase();
+  const order = "asc";
+  var users = [{}];
+  var meta_data = { source: "database" };
+
+  //------Pagenation Helpers-------------
+
+  const page = Math.max(0, page_number);
+
+  //------Order Helpers------------------
+
+  var get_order;
+
+  //default
+  if (!order) {
+    get_order = {
+      username: "asc",
+    };
+  } else {
+    get_order = {
+      username: order,
+    };
+  }
+
+  var query = {
+    is_confirmed: true,
+  };
+
+  if (q) {
+    query.first_name = { $regex: `${q}`, $options: `i` };
+    query.last_name = { $regex: `${q}`, $options: `i` };
+    query.middle_name = { $regex: `${q}`, $options: `i` };
+  } else {
+    throw { name: "NotFound", message: "No Users" };
+  }
+
+  try {
+    users = await db.user
+      .find(
+        { $or: [{ query }] },
+        {
+          is_confirmed: 0,
+          use_email_notification: 0,
+          token_code: 0,
+          token_expiration: 0,
+          created_at: 0,
+          __v: 0,
+        }
+      )
+      .limit(page_size)
+      .skip(page_size * page)
+      .sort(get_order); // get all
+
+    meta_data.amount = users.length;
+  } catch (e) {
+    throw { name: "NotFound", message: `${q} Not Found` };
+  }
+
+  return { users, meta_data };
+}
 
 async function getByID(req) {
   const id = req.params.id;
+  var user, meta_data;
+
+  //... Check in db if not found
+
+  try {
+    user = await db.user.findOne(
+      { _id: id },
+      {
+        is_confirmed: 0,
+        use_email_notification: 0,
+        token_code: 0,
+        token_expiration: 0,
+        created_at: 0,
+        __v: 0,
+      }
+    );
+    meta_data = {
+      source: "database",
+    };
+  } catch (err) {
+    throw {
+      name: "NotFound",
+      message: `${id} Not Found`,
+    };
+  }
+
+  return { meta_data, user };
 }
 
 async function create(req) {
