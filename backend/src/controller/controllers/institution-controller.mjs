@@ -1,13 +1,14 @@
 import service from "../../service/index.mjs";
+import { protect } from "../../middleware/authorization.mjs";
 
 const TOP_ROUTE = "/institution";
 
 function controller(router) {
   return (req, res, next) => {
     router.get(`${TOP_ROUTE}/:id`, getInstitutionById);
-    router.delete(`${TOP_ROUTE}/:id`, deleteInstitution);
-    router.post(`${TOP_ROUTE}/`, createInstitution);
     router.get(`${TOP_ROUTE}s/`, searchInstitution);
+    router.delete(`${TOP_ROUTE}/:id`, protect, deleteInstitution);
+    router.post(`${TOP_ROUTE}/`, protect, createInstitution);
     next();
   };
 }

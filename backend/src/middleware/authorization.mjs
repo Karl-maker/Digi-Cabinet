@@ -30,7 +30,6 @@ async function authorize(req, res, next) {
     );
     next();
   } catch (err) {
-    req.user = { email: "guest-user" };
     next();
   }
 }
