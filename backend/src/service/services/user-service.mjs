@@ -17,6 +17,7 @@ export default {
 
 async function _delete(req) {
   //Need Password and Email...
+  return {};
 }
 
 async function getManyByName(req) {
