@@ -1,5 +1,4 @@
 import service from "../../service/index.mjs";
-import logger from "../../log/server-logger.mjs";
 import rateLimit from "express-rate-limit";
 
 const TOP_ROUTE = "/user";

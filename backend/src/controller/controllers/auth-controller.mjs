@@ -1,5 +1,7 @@
 import service from "../../service/index.mjs";
 import logger from "../../log/server-logger.mjs";
+import config from "../../config/config.mjs";
+
 import rateLimit from "express-rate-limit";
 
 const TOP_ROUTE = "/auth";
@@ -18,19 +20,38 @@ const accessTokenLimiter = rateLimit({
 
 function controller(router) {
   return (req, res, next) => {
-    router.post(`${TOP_ROUTE}/register`, registerLimiter, register);
+    router.post(`${TOP_ROUTE}/register`, registerLimiter, registerUser);
     router.post(
       `${TOP_ROUTE}/authentication`,
       authenticationLimiter,
-      authenticate
+      authenticateUser
     );
-    router.get(`${TOP_ROUTE}/access-token`, accessTokenLimiter);
+    router.get(
+      `${TOP_ROUTE}/access-token`,
+      accessTokenLimiter,
+      getNewAccessToken
+    );
 
     next();
   };
 }
 
-function register(req, res, next) {
+function getNewAccessToken(req, res, next) {
+  service.auth
+    .getAccessToken(req)
+    .then((results) => {
+      logger.info({
+        message: "Access Token Created",
+        timestamp: new Date().toString(),
+      });
+      res.status(200).json({ results });
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
+
+function registerUser(req, res, next) {
   service.user
     .create(req)
     .then((user) => {
@@ -45,6 +66,28 @@ function register(req, res, next) {
     });
 }
 
-function authenticate(req, res, next) {}
+function authenticateUser(req, res, next) {
+  service.auth
+    .authenticate(req)
+    .then((results) => {
+      logger.info({
+        message: "API Authenticated User",
+        timestamp: new Date().toString(),
+      });
+      res
+        .cookie("refresh_token", results.refresh_token.token, {
+          secure: config.jwt.IS_HTTPS,
+          httpOnly: true,
+          //sameSite: true,
+          expires: results.refresh_token.expires,
+          path: "/api",
+        })
+        .status(200)
+        .json({ results });
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
 
 export default controller;
