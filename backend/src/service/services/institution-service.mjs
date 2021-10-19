@@ -43,7 +43,7 @@ async function create(req) {
 
   //-----Create Association Between User and Institution--------
 
-  await association.createAssociation({
+  await association.createUnprotected({
     user: user._id,
     institution: new_institution._id,
     is_admin: true,

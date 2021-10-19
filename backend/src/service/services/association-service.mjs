@@ -1,7 +1,7 @@
 import { db } from "../../helper/db.mjs";
 import config from "../../config/config.mjs";
 
-export default { createAssociation, isAdmin };
+export default { createUnprotected, isAdmin };
 
 async function isAdmin(req) {
   const user = req.user;
@@ -22,7 +22,7 @@ async function isAdmin(req) {
 
 //----------NON-ROUTE-FUNCTIONS--------------
 
-async function createAssociation(details) {
+async function createUnprotected(details) {
   try {
     await db.association.create(details);
   } catch (err) {
