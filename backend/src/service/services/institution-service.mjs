@@ -84,6 +84,7 @@ async function getAllByName(req) {
   const order = "asc";
   var institutions = [{}];
   var meta_data = { source: "database" };
+  var query = {};
 
   //------Pagenation Helpers-------------
 
@@ -104,10 +105,6 @@ async function getAllByName(req) {
     };
   }
 
-  var query = {
-    is_confirmed: true,
-  };
-
   if (q) {
     query.name = { $regex: `${q}`, $options: `i` };
   } else {
@@ -115,7 +112,7 @@ async function getAllByName(req) {
   }
 
   try {
-    institution = await db.institution
+    institutions = await db.institution
       .find(
         { $or: [{ query }] },
         {
@@ -131,5 +128,5 @@ async function getAllByName(req) {
     throw { name: "NotFound", message: `${q} Not Found` };
   }
 
-  return { institution, meta_data };
+  return { institutions, meta_data };
 }
