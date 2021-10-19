@@ -37,7 +37,7 @@ function getInstitutionById(req, res, next) {
 
 function searchInstitution(req, res, next) {
   service.institution
-    .getManyByName(req)
+    .getAllByName(req)
     .then((results) => {
       res.status(200).json({ results });
     })
