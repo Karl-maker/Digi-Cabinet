@@ -17,10 +17,19 @@ const accessTokenLimiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 5,
 });
+const confirmEmailLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+});
 
 function controller(router) {
   return (req, res, next) => {
     router.post(`${TOP_ROUTE}/register`, registerLimiter, registerUser);
+    router.post(
+      `${TOP_ROUTE}/confirm-email`,
+      confirmEmailLimiter,
+      confirmUserEmail
+    );
     router.post(
       `${TOP_ROUTE}/authentication`,
       authenticationLimiter,
@@ -34,6 +43,21 @@ function controller(router) {
 
     next();
   };
+}
+
+function confirmUserEmail(req, res, next) {
+  service.auth
+    .confirmEmail(req)
+    .then(() => {
+      logger.info({
+        message: "Email Confirmed",
+        timestamp: new Date().toString(),
+      });
+      res.status(200).json({ message: "Email Confirmed" });
+    })
+    .catch((err) => {
+      next(err);
+    });
 }
 
 function getNewAccessToken(req, res, next) {

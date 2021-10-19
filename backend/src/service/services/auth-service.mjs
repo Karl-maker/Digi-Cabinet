@@ -8,7 +8,45 @@ import jwt from "jsonwebtoken";
 export default {
   authenticate,
   getAccessToken,
+  confirmEmail,
 };
+
+async function confirmEmail(req) {
+  const PIN = req.body.code;
+  const email = req.body.email.toLowerCase() || null;
+  var user;
+  var select = {
+    token_code: req.body.code,
+  };
+
+  //Email OR Username OR OTHER
+
+  if (email) {
+    select.email = email.toLowerCase();
+  } else {
+    throw { name: "UnexpectedError", message: err.message };
+  }
+
+  user = await db.user.findOne(select);
+
+  if (new Date(user.token_expiration).valueOf() > new Date().valueOf()) {
+    throw { name: "UnexpectedError", message: err.message };
+  }
+
+  select.token_code = PIN;
+
+  try {
+    user = await db.user.findOneAndUpdate(select, {
+      is_confirmed: true,
+      token_code: null,
+      token_expiration: null,
+    });
+  } catch (err) {
+    throw { name: "UnexpectedError", message: err.message };
+  }
+
+  return;
+}
 
 async function getAccessToken(req) {
   const email = req.body.email.toLowerCase();
