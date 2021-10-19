@@ -10,7 +10,7 @@ export default {
   create,
   delete: _delete,
   getByID,
-  getManyByName,
+  getAllByName,
 };
 
 //GET
@@ -20,7 +20,7 @@ async function _delete(req) {
   return {};
 }
 
-async function getManyByName(req) {
+async function getAllByName(req) {
   const page_size = parseInt(req.query.page_size, 10);
   const page_number = parseInt(req.query.page_number, 10);
   const q = req.query.q.toLowerCase();

@@ -2,6 +2,8 @@ import { db } from "../../helper/db.mjs";
 
 export default {
   create,
+  getAllByName,
+  getById,
 };
 
 async function create(req) {
@@ -28,3 +30,7 @@ async function create(req) {
 
   return student;
 }
+
+async function getAllByName(req) {}
+
+async function getById(req) {}

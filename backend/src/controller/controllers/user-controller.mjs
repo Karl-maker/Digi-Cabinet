@@ -14,7 +14,7 @@ function controller(router) {
 
 function searchUsers(req, res, next) {
   service.user
-    .getManyByName(req)
+    .getAllByName(req)
     .then((results) => {
       res
         .status(200)

@@ -4,7 +4,7 @@ import association from "./association-service.mjs";
 
 export default {
   getById,
-  getManyByName,
+  getAllByName,
   create,
   delete: _delete,
 };
@@ -77,7 +77,7 @@ async function getById(req) {
   return { meta_data, institution };
 }
 
-async function getManyByName(req) {
+async function getAllByName(req) {
   const page_size = parseInt(req.query.page_size, 10);
   const page_number = parseInt(req.query.page_number, 10);
   const q = req.query.q.toLowerCase();
