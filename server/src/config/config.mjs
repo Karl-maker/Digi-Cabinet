@@ -23,6 +23,8 @@ const readENVFile = (location) => {
 const variables = {
   environment: {
     RESOURCE_PATH: ENV.RESOURCE_PATH || "../container",
+    BUILD: ENV.BUILD_PATH || "../../client/out",
+    NODE_ENV: ENV.NODE_ENV || "development",
   },
 
   //Server API:

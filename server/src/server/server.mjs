@@ -38,6 +38,7 @@ const initialize = (app, { express }) => {
       filter: compressorCheck(compression),
     })
   );
+
   app.use(httpLogger);
   app.use(helmet());
   app.use(limiter);
@@ -50,6 +51,7 @@ const initialize = (app, { express }) => {
       optionSuccessStatus: 200,
     })
   );
+  app.use(authorize);
 
   /*
     ----------------------------------------------------------------
@@ -63,7 +65,8 @@ const initialize = (app, { express }) => {
       path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
     )
   );
-  app.use("/api", authorize, routes(express.Router()));
+  app.use("/api", routes(express.Router()));
+
   app.use("*", (req, res, next) => {
     next({ name: "NotFound", message: "Resource Not Found" });
   });
