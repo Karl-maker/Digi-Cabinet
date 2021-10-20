@@ -1,27 +1,46 @@
-# dependencies
-/backend/node_modules
+#dependencies
+*node_modules
+/client/.pnp
+/client/.pnp.js
+
+# testing
+/client/coverage
 
 #keys
-/backend/keys
+/server/keys
 
 # debugging
-/backend/logs
+/server/logs
 
 #logo-blend file
 /logo_development
 
 #containers
-/backend/container/resources
+/server/container/resources
 
 # misc
-/backend/.env
-/backend/.env.local
-/backend/.env.development
-/backend/.env.development.local
-/backend/.env.test
-/backend/.env.test.local
-/backend/.env.production
-/backend/.env.production.local
+/client/.DS_Store
+*.pem
+
+#.env
+*.env
+*.env.local
+*.env.development
+*.env.development.local
+*.env.test
+*.env.test.local
+*.env.production
+*.env.production.local
+
+# vercel
+.vercel
+
+#next.js
+/client/.next/
+/client/out/
+
+#production
+/client/build
 
 .prettierrc
 
