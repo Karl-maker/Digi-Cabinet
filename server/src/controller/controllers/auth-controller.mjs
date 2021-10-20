@@ -1,6 +1,7 @@
 import service from "../../service/index.mjs";
 import logger from "../../log/server-logger.mjs";
 import config from "../../config/config.mjs";
+import { protect } from "../../middleware/authorization.mjs";
 
 import rateLimit from "express-rate-limit";
 
@@ -40,9 +41,14 @@ function controller(router) {
       accessTokenLimiter,
       getNewAccessToken
     );
+    router.get(`${TOP_ROUTE}/current-user`, protect, getCurrentUser);
 
     next();
   };
+}
+
+function getCurrentUser(req, res, next) {
+  res.status(200).json(req.user);
 }
 
 function confirmUserEmail(req, res, next) {

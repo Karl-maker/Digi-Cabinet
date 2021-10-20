@@ -13,6 +13,12 @@ function controller(router) {
   };
 }
 
+function getStudentById(req, res, next) {}
+
+function deleteStudent(req, res, next) {}
+
+function searchStudent(req, res, next) {}
+
 function checkIfAdmin(req, res, next) {
   service.association
     .isAdmin(req)

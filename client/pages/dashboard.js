@@ -1,13 +1,13 @@
 import React from "react";
 import withPrivateRoute from "../components/private/withPrivateRoute";
+import { fetchAPI } from "../api/connect";
 
-const Dashboard = () => {
-  return <div>Dashboard</div>;
+const Dashboard = ({ user }) => {
+  return <div>{user.email}</div>;
 };
 
 Dashboard.getInitialProps = async (props) => {
-  console.info(props);
-  return {};
+  return { user: props.auth.user };
 };
 
 export default withPrivateRoute(Dashboard);

@@ -1,13 +1,21 @@
 import React from "react";
 import Router from "next/router";
+import { isAuthenticated } from "../../api/auth";
 
 const login = "/login?redirected=true"; // Define your login route address.
 
-const checkUserAuthentication = () => {
+const checkUserAuthentication = async () => {
   //1. Check Local/Session Storage for Access OR Refresh Token
   //2. Try to get Current User ID
 
-  return { auth: false };
+  var auth = false;
+  const results = await isAuthenticated();
+
+  if (results.email) {
+    auth = true;
+  }
+
+  return { auth: auth, user: results };
 };
 
 export default (WrappedComponent) => {
