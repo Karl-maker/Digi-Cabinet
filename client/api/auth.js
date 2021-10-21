@@ -2,7 +2,7 @@ import config from "../config/config";
 const variables = config();
 const API_URL = variables.api.BASE_URL;
 
-export async function isAuthenticated() {
+const isLoggedIn = async () => {
   //var token = sessionStorage.getItem("access_token");
   var res;
   var accesstoken =
@@ -18,10 +18,15 @@ export async function isAuthenticated() {
         "Content-Type": "application/json",
       }),
     });
+
+    if ((await res.status) !== 200) {
+      throw new Error("No User");
+    }
   } catch (err) {
-    console.log("Fetching to API Failed: ", err);
-    return {};
+    throw new Error("Unexpected Issue");
   }
 
   return await res.json();
-}
+};
+
+export { isLoggedIn };

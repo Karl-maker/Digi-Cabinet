@@ -4,8 +4,7 @@ import Link from "next/link";
 
 //Components
 
-import Header from "../components/body/header";
-import Footer from "../components/body/footer";
+import { ContextWrapper } from "../components/contextWrapper";
 
 /*
 
@@ -47,11 +46,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <body>
-        <Header />
-        <main>
-          <Component {...pageProps} />
-        </main>
-        <Footer />
+        <ContextWrapper Component={Component} pageProps={pageProps} />
       </body>
     </div>
   );
