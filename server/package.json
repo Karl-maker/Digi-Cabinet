@@ -5,7 +5,8 @@
   "main": "./src/index.mjs",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon --experimental-modules ./src/index.mjs",
-    "start": "cross-env NODE_ENV=production node --experimental-modules ./src/index.mjs"
+    "start": "npm --prefix ../client/ run build && npm run prod",
+    "prod": "cross-env NODE_ENV=production node --experimental-modules ./src/index.mjs"
   },
   "author": "Karl-Johan Bailey",
   "license": "ISC",

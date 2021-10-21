@@ -57,7 +57,11 @@ const initialize = (app, { express }) => {
     ----------------------------------------------------------------
     *****************Static and API routes below********************
     ----------------------------------------------------------------
-    */
+  */
+
+  app.use(
+    express.static(path.join(__dirname, `../${config.environment.BUILD}`))
+  );
 
   app.use(
     "/container",
@@ -65,7 +69,14 @@ const initialize = (app, { express }) => {
       path.join(__dirname, `../${config.environment.RESOURCE_PATH}`)
     )
   );
+
   app.use("/api", routes(express.Router()));
+
+  app.get("/", (req, res) => {
+    res.sendFile(
+      path.join(__dirname, `../${config.environment.BUILD}`, `index.html`)
+    );
+  });
 
   app.use("*", (req, res, next) => {
     next({ name: "NotFound", message: "Resource Not Found" });

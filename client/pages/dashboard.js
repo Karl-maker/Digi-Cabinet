@@ -1,9 +1,16 @@
 import React from "react";
+import Head from "next/head";
 import withPrivateRoute from "../components/private/withPrivateRoute";
-import { fetchAPI } from "../api/connect";
 
 const Dashboard = ({ user }) => {
-  return <div>{user.email}</div>;
+  return (
+    <div>
+      <Head>
+        <title>Digi Cabinet | Dashboard</title>
+      </Head>
+      <h1>{user.email}</h1>
+    </div>
+  );
 };
 
 Dashboard.getInitialProps = async (props) => {

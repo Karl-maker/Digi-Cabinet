@@ -6,6 +6,8 @@
 
 ##### Create a keys folder in root and create access-private.key, access-public.key, refresh-private.key and refresh-public.key. Place keys inside accordingly. Generate from https://dinochiesa.github.io/jwt/
 
+##### For Next.js App Set .env in the folder
+
 #### in terminal follow instructions to run backend:
 
 0. #### cd backend
