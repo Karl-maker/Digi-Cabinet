@@ -9,11 +9,14 @@ const checkUserAuthentication = async () => {
   //2. Try to get Current User ID
 
   var auth = false;
-  const results = await isLoggedIn();
-
-  if (results.email) {
-    auth = true;
-  }
+  const results = await isLoggedIn()
+    .then((results) => {
+      auth = true;
+      return results;
+    })
+    .catch((err) => {
+      return null;
+    });
 
   return { auth: auth, user: results };
 };
