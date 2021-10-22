@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export default function About() {
+const Login = () => {
   return (
     <div>
       <Head>
@@ -9,4 +9,5 @@ export default function About() {
       <h1>Login</h1>
     </div>
   );
-}
+};
+export default Login;

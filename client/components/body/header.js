@@ -7,38 +7,55 @@ import { AccountContext } from "../contextWrapper";
 import getConfig from "../../config/config";
 import { isLoggedIn } from "../../api/auth";
 
+//css
+
 const config = getConfig();
 
 function Header() {
   const user = useContext(AccountContext);
   return (
-    <header>
+    <header className="header-bar">
       <div>
-        <Image src={logo} alt="Digi-Cabinet Logo" width={100} height={100} />
-      </div>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link href="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/about">About Us</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div>
+        <div className="logo-header">
+          <Link href="/">
+            <Image src={logo} alt="Digi-Cabinet Logo" width={80} />
+          </Link>
+        </div>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+              <li>
+                <Link href="/institution">Institutions</Link>
+              </li>
+              <li>
+                <a href="https://github.com/Karl-maker/Digi-Cabinet">
+                  Documentation
+                </a>
+              </li>
+              <li>
+                <a href="https://karljohan6.wixsite.com/my-site-2">About Us</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
         {user.isLoggedIn ? (
-          <div>
-            <h5>{`Welcome, ${user.first_name} ${user.last_name}!`}</h5>
-            <img
-              src={`${config.api.BASE_URL}${user.profile_picture}`}
-              alt="User Profile Picture"
-              width={100}
-              height={100}
-            />
-          </div>
+          <>
+            <div>
+              <p>{`Welcome, ${user.first_name} ${user.last_name}`}</p>
+            </div>
+            <div>
+              <Link href={`/user/${user._id}`}>
+                <img
+                  className="profile-picture"
+                  src={`${config.api.BASE_URL}${user.profile_picture}`}
+                  alt="User Profile Picture"
+                />
+              </Link>
+            </div>
+          </>
         ) : (
           <div>
             <button>Sign Up</button>
