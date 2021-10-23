@@ -18,7 +18,7 @@ function Header() {
       <div>
         <div className="logo-header">
           <Link href="/">
-            <Image src={logo} alt="Digi-Cabinet Logo" width={80} />
+            <Image src={logo} alt="Digi-Cabinet Logo" />
           </Link>
         </div>
         <div>
