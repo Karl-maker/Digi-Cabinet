@@ -5,6 +5,7 @@ import { createContext, useEffect, useState } from "react";
 import getConfig from "../../../config/config";
 import { MdVerified } from "react-icons/md";
 import DotLoader from "react-spinners/DotLoader";
+import DisplayUnknownObject from "../../../utils/tools/displayUnknownObject";
 
 const config = getConfig();
 
@@ -68,17 +69,17 @@ const Institution = () => {
             <hr></hr>
             <div>
               <p style={{ fontSize: "0.7em" }}>{`Id: ${id}`}</p>
-              <div style={{ display: "flex" }}>
-                <p
+              <ul style={{ display: "flex", marginLeft: "-2.5em" }}>
+                <li
                   style={{ fontSize: "0.7em", marginRight: "1em" }}
-                >{`Country: ${institution.country}`}</p>
-                <p
+                >{`Country: ${institution.country}`}</li>
+                <li
                   style={{ fontSize: "0.7em", marginRight: "1em" }}
-                >{`Type: ${institution.type}`}</p>
-                <p
+                >{`Type: ${institution.type}`}</li>
+                <li
                   style={{ fontSize: "0.7em", marginRight: "1em" }}
-                >{`Level: ${institution.level}`}</p>
-                <p
+                >{`Level: ${institution.level}`}</li>
+                <li
                   style={{ fontSize: "0.7em", marginRight: "1em" }}
                 >{`Profile Created: ${
                   institution.registered_date.getMonth() +
@@ -86,14 +87,12 @@ const Institution = () => {
                   institution.registered_date.getDate() +
                   "/" +
                   institution.registered_date.getFullYear()
-                }`}</p>
-              </div>
+                }`}</li>
+              </ul>
             </div>
             <div className="container secondary">
               <h5>More Info</h5>
-              {Object.keys(institution.info).map((key) => {
-                return <p>{`${key}: ${institution.info[key]}`}</p>;
-              })}
+              <DisplayUnknownObject object={institution.info} />
             </div>
           </div>
         ) : (

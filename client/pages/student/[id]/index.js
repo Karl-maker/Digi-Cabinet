@@ -5,6 +5,8 @@ import { createContext, useEffect, useState } from "react";
 import getConfig from "../../../config/config";
 import { MdVerified } from "react-icons/md";
 import DotLoader from "react-spinners/DotLoader";
+import DisplayUnknownObject from "../../../utils/tools/displayUnknownObject";
+import DisplayUnknownArrayObject from "../../../utils/tools/displayUnknownArrayObject";
 
 const config = getConfig();
 
@@ -54,11 +56,11 @@ const Student = () => {
             </div>
             <hr></hr>
             <div>
-              <div style={{ display: "flex" }}>
-                <p
+              <ul style={{ display: "flex", marginLeft: "-2.5em" }}>
+                <li
                   style={{ fontSize: "0.7em", marginRight: "1em" }}
-                >{`House: ${student.house}`}</p>
-                <p
+                >{`House: ${student.house}`}</li>
+                <li
                   style={{ fontSize: "0.7em", marginRight: "1em" }}
                 >{`Profile Created: ${
                   student.created_at.getMonth() +
@@ -66,43 +68,19 @@ const Student = () => {
                   student.created_at.getDate() +
                   "/" +
                   student.created_at.getFullYear()
-                }`}</p>
-              </div>
-              {Object.keys(student.contact_info).map((key) => {
-                return <p>{`${key}: ${student.contact_info[key]}`}</p>;
-              })}
+                }`}</li>
+              </ul>
+              <DisplayUnknownObject object={student.contact_info} />
               <div className="container secondary">
                 <h4>Guardian Information</h4>
-                {student.guardian_info.map(
-                  ({ name, number, email, relation }) => (
-                    <div>
-                      <p
-                        style={{ fontSize: "1em" }}
-                        key={relation}
-                      >{`Relation: ${relation || "N/A"}`}</p>
-                      <p style={{ fontSize: "1em" }} key={name}>{`Name: ${
-                        name || "N/A"
-                      }`}</p>
-                      <p
-                        style={{ fontSize: "1em" }}
-                        key={number}
-                      >{`Phone Number: ${number || "N/A"}`}</p>
-                      <p style={{ fontSize: "1em" }} key={email}>{`Email: ${
-                        email || "N/A"
-                      }`}</p>
-                      <hr></hr>
-                    </div>
-                  )
-                )}
+                <DisplayUnknownArrayObject object={student.guardian_info} />
               </div>
             </div>
             <div className="container secondary">
               {student.info ? (
                 <>
                   <h4>More Information</h4>
-                  {Object.keys(student.info).map((key) => {
-                    return <p>{`${key}: ${student.info[key]}`}</p>;
-                  })}
+                  <DisplayUnknownObject object={student.info} />
                 </>
               ) : (
                 <></>

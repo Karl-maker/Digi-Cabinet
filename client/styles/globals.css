@@ -36,6 +36,19 @@ a {
   font-weight: bold;
 }
 
+ul {
+  list-style-type: none;
+  margin-left: -2em;
+}
+
+li {
+  font-family: "Montserrat", sans-serif;
+  overflow-wrap: break-word;
+  color: #dfe6e9;
+  list-style-type: none;
+  margin-bottom: 0.5em;
+}
+
 .header-bar {
   height: 13%;
   width: 100%;
@@ -155,6 +168,15 @@ a {
 
 .primary {
   background-color: #1c1a30;
+}
+
+.tertiary {
+  background-color: #fafafa;
+}
+
+.tertiary li {
+  color: #2d3436;
+  font-weight: bold;
 }
 
 main {
