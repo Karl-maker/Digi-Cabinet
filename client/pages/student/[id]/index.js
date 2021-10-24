@@ -7,6 +7,7 @@ import { MdVerified } from "react-icons/md";
 import DotLoader from "react-spinners/DotLoader";
 import DisplayUnknownObject from "../../../utils/tools/displayUnknownObject";
 import DisplayUnknownArrayObject from "../../../utils/tools/displayUnknownArrayObject";
+import { capitalizeFirstLetter } from "../../../utils/tools/characterManipulation";
 
 const config = getConfig();
 
@@ -49,9 +50,9 @@ const Student = () => {
             <div className="institution-header">
               <img src={`${config.api.BASE_URL}${student.profile_picture}`} />
               <div>
-                <h3
-                  style={{ marginRight: "0.8em" }}
-                >{`${student.first_name} ${student.last_name}`}</h3>
+                <h3 style={{ marginRight: "0.8em" }}>{`${capitalizeFirstLetter(
+                  student.first_name
+                )} ${capitalizeFirstLetter(student.last_name)}`}</h3>
               </div>
             </div>
             <hr></hr>

@@ -6,6 +6,7 @@ import getConfig from "../../../config/config";
 import { MdVerified } from "react-icons/md";
 import DotLoader from "react-spinners/DotLoader";
 import DisplayUnknownObject from "../../../utils/tools/displayUnknownObject";
+import { capitalizeFirstLetter } from "../../../utils/tools/characterManipulation";
 
 const config = getConfig();
 
@@ -56,7 +57,9 @@ const Institution = () => {
                     alignItems: "center",
                   }}
                 >
-                  <h3 style={{ marginRight: "0.8em" }}>{institution.name}</h3>
+                  <h3 style={{ marginRight: "0.8em" }}>
+                    {capitalizeFirstLetter(institution.name)}
+                  </h3>
                   {institution.verified ? (
                     <MdVerified style={{ color: "#74b9ff" }} />
                   ) : (
