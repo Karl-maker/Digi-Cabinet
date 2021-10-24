@@ -1,17 +1,21 @@
 import Link from "next/link";
-import Image from "next/image";
-import logo from "../../public/img/logo.png";
+import getConfig from "../../config/config";
+
+const config = getConfig();
 
 const Footer = () => {
   return (
     <footer>
-      <div className="footer-logo">
+      <div>
         <Link href="/">
-          <Image src={logo} alt="Digi-Cabinet Logo" />
+          <img
+            src={`${config.api.BASE_URL}${config.default.LOGO}`}
+            alt="Digi-Cabinet Logo"
+          />
         </Link>
       </div>
       <div>
-        <p>© 2021 Digi Cabinet, Inc</p>
+        <p>© 2021 Software Engineers United, Inc</p>
       </div>
     </footer>
   );

@@ -81,6 +81,7 @@ const StudentSchema = new mongoose.Schema({
         number: { type: String, required: false },
       },
     ],
+    select: false, //Doesn't Send Sensitive Info Automatically
   },
   house: { type: String, required: false },
   profile_picture: {

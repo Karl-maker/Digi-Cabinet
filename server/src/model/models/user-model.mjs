@@ -88,7 +88,7 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: false, trim: true },
     number: { type: String, required: false, trim: true },
   },
-  is_confirmed: { type: Boolean, default: 0 },
+  is_confirmed: { type: Boolean, default: 1 }, //ONLY FOE DEMO
   use_email_notification: { type: Boolean, default: 1 },
   token_code: { type: String },
   token_expiration: { type: Date },

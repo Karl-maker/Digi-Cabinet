@@ -7,8 +7,16 @@ const DEFAULT_PROFILE_URL_PATH = config.resource.DEFAULT_INSTITUTION_PATH;
 
 const InstitutionSchema = new mongoose.Schema({
   name: { type: String, required: [true, "Enter Name Of Insitutition"] },
+  type: {
+    type: String,
+    required: [true, "Enter Type Of Insitutition (e.g. Government)"],
+  },
+  level: {
+    type: String,
+    required: [true, "Enter Level Of Insitutition (e.g. High School etc)"],
+  },
+  description: { type: String, required: false, trim: true },
   info: {
-    description: { type: String, required: false, trim: true },
     number: { type: String, required: false, trim: true },
     email: { type: String, required: false, trim: true },
   },

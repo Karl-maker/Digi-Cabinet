@@ -13,6 +13,10 @@ const getConfig = () => {
       HOST: process.env.CLIENT_HOST || "localhost",
       PORT: process.env.CLIENT_PORT || 3000,
     },
+
+    default: {
+      LOGO: process.env.LOGO || "/container/default/logo/logo.png",
+    },
   };
 
   return variables;

@@ -15,7 +15,7 @@ async function _delete(req) {
 
 async function create(req) {
   // Get user input and sanitize it
-  const { name, description, number, email, country } = req.body;
+  const { name, description, number, email, country, type, level } = req.body;
   const user = req.user;
 
   //-----Save Institution-------
@@ -33,8 +33,10 @@ async function create(req) {
 
   const new_institution = await db.institution.create({
     name,
+    type,
+    level,
+    description,
     info: {
-      description: description,
       number: number,
       email: email.toLowerCase(),
     },

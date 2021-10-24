@@ -28,7 +28,7 @@ function getInstitutionById(req, res, next) {
   service.institution
     .getById(req)
     .then((results) => {
-      res.status(200).json({ results });
+      res.status(200).json(results);
     })
     .catch((err) => {
       next(err);
