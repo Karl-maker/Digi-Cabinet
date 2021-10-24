@@ -13,7 +13,16 @@ function controller(router) {
   };
 }
 
-function getStudentById(req, res, next) {}
+function getStudentById(req, res, next) {
+  service.student
+    .getById(req)
+    .then((results) => {
+      res.status(200).json(results);
+    })
+    .catch((err) => {
+      next(err);
+    });
+}
 
 function deleteStudent(req, res, next) {}
 

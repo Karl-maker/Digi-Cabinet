@@ -16,9 +16,7 @@ async function fetchAPI(url, { method, body, header }) {
     body: body,
   });
 
-  const res = response.json();
-
-  return res;
+  return response;
 }
 
 export { fetchAPI };

@@ -1,7 +1,7 @@
 import { db } from "../../helper/db.mjs";
 import config from "../../config/config.mjs";
 
-export default { createUnprotected, isAdmin };
+export default { createUnprotected, isAdmin, isAdminUnprotected };
 
 async function isAdmin(req) {
   const user = req.user;
@@ -30,4 +30,21 @@ async function createUnprotected(details) {
   }
 
   return true;
+}
+
+async function isAdminUnprotected(details) {
+  const user = details.user;
+  const institution = details.institution;
+
+  if (
+    await db.association.exists({
+      institution: institution,
+      user: user,
+      is_admin: 1,
+    })
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }

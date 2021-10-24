@@ -4,6 +4,7 @@ import { fetchAPI } from "../../../api/connect";
 import { createContext, useEffect, useState } from "react";
 import getConfig from "../../../config/config";
 import { MdVerified } from "react-icons/md";
+import DotLoader from "react-spinners/DotLoader";
 
 const config = getConfig();
 
@@ -13,21 +14,27 @@ const Institution = () => {
 
   const [institution, setInstitution] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState({});
 
   useEffect(async () => {
-    await fetchAPI(`api/institution/${id}`, { method: "get" })
+    const results = await fetchAPI(`api/institution/${id}`, { method: "get" })
       .then((results) => {
-        console.log(results);
-        results.institution.registered_date = new Date(
-          results.institution.registered_date
-        );
-        setInstitution(results.institution);
+        return results;
       })
       .catch((error) => {
-        console.log(error);
+        setError(error);
       });
 
-    setIsLoading(false);
+    if ((await results.status) !== 200) {
+      setError(await results.json());
+    } else {
+      var res = await results.json();
+      res.institution.registered_date = new Date(
+        res.institution.registered_date
+      );
+      setInstitution(res.institution);
+      setIsLoading(false);
+    }
   }, []);
 
   return (
@@ -90,8 +97,22 @@ const Institution = () => {
             </div>
           </div>
         ) : (
-          <div className="container primary">
-            <h3>Nothing To Show Here :/</h3>
+          <div>
+            {error.message ? (
+              <div className="container primary">
+                <p>{error.message}</p>
+              </div>
+            ) : (
+              <div
+                style={{
+                  margin: "0 auto",
+                  textAlign: "center",
+                  height: "100%",
+                }}
+              >
+                <DotLoader color="#ffff" loading={isLoading} size={100} />
+              </div>
+            )}
           </div>
         )}
       </div>

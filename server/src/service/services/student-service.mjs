@@ -1,4 +1,5 @@
 import { db } from "../../helper/db.mjs";
+import association from "./association-service.mjs";
 
 export default {
   create,
@@ -13,10 +14,13 @@ async function create(req) {
     first_name,
     middle_name,
     last_name,
-    house,
     contact_info_email,
     contact_info_number,
     institution,
+    more_info,
+    sex,
+    date_of_birth,
+    guardian_info,
   } = req.body;
 
   //Sanitize
@@ -43,8 +47,11 @@ async function create(req) {
     first_name,
     middle_name,
     last_name,
-    house,
+    date_of_birth,
+    sex,
     contact_info: { email: contact_info_email, number: contact_info_number },
+    guardian_info: guardian_info,
+    info: more_info,
     institution,
   });
 
@@ -107,4 +114,44 @@ async function getAllByName(req) {
   return { students, meta_data };
 }
 
-async function getById(req) {}
+async function getById(req) {
+  const id = req.params.id;
+  var student, meta_data, user;
+
+  try {
+    user = req.user._id;
+  } catch (err) {
+    user = 0;
+  }
+
+  //Get User's Association
+
+  try {
+    student = await db.student.findOne(
+      { _id: id },
+      {
+        __v: 0,
+      }
+    );
+    meta_data = {
+      source: "database",
+    };
+  } catch (err) {
+    throw {
+      name: "NotFound",
+      message: `${id} Not Found`,
+    };
+  }
+
+  if (
+    await association.isAdminUnprotected({
+      user,
+      institution: student.institution,
+    })
+  ) {
+  } else {
+    student.info = 0;
+  }
+
+  return { meta_data, student };
+}

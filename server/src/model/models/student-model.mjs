@@ -47,43 +47,30 @@ const StudentSchema = new mongoose.Schema({
       `Last name must have less than ${MAX_NAME} characters`,
     ],
   },
+  date_of_birth: { type: Date, required: false },
+  sex: { type: String, required: false },
   info: {
     address: {
-      street_address: { type: String, maxlength: 255, required: false },
-      address_line_2: { type: String, maxlength: 150, required: false },
-      city: { type: String, maxlength: 255, required: false },
-      provence: { type: String, maxlength: 255, required: false },
-      postal_code: { type: String, maxlength: 15, required: false },
-      country: { type: String, maxlength: 255, required: false },
+      type: String,
+      maxlength: 255,
+      required: false,
     },
-    date_of_birth: { type: Date, required: false },
-    sex: { type: String, required: false },
+    postal_code: { type: String, maxlength: 15, required: false },
     ethnicity: { type: String, required: false },
     religion: { type: String, required: false },
     citizen_status: { type: String, required: false },
     country_of_birth: { type: String, required: false },
     birth_certificate_pin: { type: String, required: false },
-    guardian_name: [
-      {
-        relation: { type: String, required: false },
-        name: { type: String, required: false },
-      },
-    ],
-    parents_email: [
-      {
-        relation: { type: String, required: false },
-        email: { type: String, required: false },
-      },
-    ],
-    parents_number: [
-      {
-        relation: { type: String, required: false },
-        number: { type: String, required: false },
-      },
-    ],
-    select: false, //Doesn't Send Sensitive Info Automatically
   },
-  house: { type: String, required: false },
+  guardian_info: [
+    {
+      relation: { type: String, required: false },
+      name: { type: String, required: false },
+      email: { type: String, required: false },
+      number: { type: String, required: false },
+    },
+  ],
+  house: { type: String, required: false, default: "Not Assigned" },
   profile_picture: {
     type: String,
     required: false,
