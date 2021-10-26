@@ -5,6 +5,7 @@ import Link from "next/link";
 //Components
 
 import { ContextWrapper } from "../components/contextWrapper";
+import { AuthStateProvider } from "../components/state-machines/authStateProvider";
 
 /*
 
@@ -46,7 +47,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <body>
-        <ContextWrapper Component={Component} pageProps={pageProps} />
+        <AuthStateProvider Component={Component} pageProps={pageProps} />
       </body>
     </div>
   );

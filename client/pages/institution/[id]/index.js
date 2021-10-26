@@ -4,7 +4,7 @@ import { fetchAPI } from "../../../api/connect";
 import { createContext, useEffect, useState } from "react";
 import getConfig from "../../../config/config";
 import { MdVerified } from "react-icons/md";
-import DotLoader from "react-spinners/DotLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 import DisplayUnknownObject from "../../../utils/tools/displayUnknownObject";
 import { capitalizeFirstLetter } from "../../../utils/tools/characterManipulation";
 
@@ -112,7 +112,7 @@ const Institution = () => {
                   height: "100%",
                 }}
               >
-                <DotLoader color="#ffff" loading={isLoading} size={100} />
+                <ClipLoader color="#ffff" loading={isLoading} size={100} />
               </div>
             )}
           </div>

@@ -1,18 +1,20 @@
 import Link from "next/link";
-import Image from "next/image";
-import { useContext } from "react";
-import withPrivateRoute from "../../utils/private/withPrivateRoute";
-import logo from "../../public/img/logo.png";
-import { AccountContext } from "../contextWrapper";
+import { useContext, useState, useEffect } from "react";
+import { AccountContext } from "../state-machines/authStateProvider";
 import getConfig from "../../config/config";
-import { isLoggedIn } from "../../api/auth";
+import { useActor } from "@xstate/react";
 
 //css
 
 const config = getConfig();
 
 function Header() {
-  const user = useContext(AccountContext);
+  const data = useContext(AccountContext);
+  const [state] = useActor(data.authService);
+  const { context } = state;
+
+  console.log(context);
+
   return (
     <header className="header-bar">
       <div>
@@ -44,16 +46,16 @@ function Header() {
             </ul>
           </nav>
         </div>
-        {user.isLoggedIn ? (
+        {state.matches("private") ? (
           <>
             <div>
-              <p>{`Welcome, ${user.first_name} ${user.last_name}`}</p>
+              <p>{`Welcome, ${context.user.first_name} ${context.user.last_name}`}</p>
             </div>
             <div>
-              <Link href={`/user/${user._id}`}>
+              <Link href={`/user/${context.user._id}`}>
                 <img
                   className="profile-picture"
-                  src={`${config.api.BASE_URL}${user.profile_picture}`}
+                  src={`${config.api.BASE_URL}${context.user.profile_picture}`}
                   alt="User Profile Picture"
                 />
               </Link>

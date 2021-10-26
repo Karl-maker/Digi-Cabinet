@@ -188,7 +188,6 @@ async function authenticate(req) {
     user.password = null;
 
     return {
-      user: user,
       access_token: { token: access_token, expires: access_expire },
       refresh_token: { token: refresh_token, expires: refresh_expire },
     };
