@@ -39,7 +39,9 @@ function searchInstitution(req, res, next) {
   service.institution
     .getAllByName(req)
     .then((results) => {
-      res.status(200).json({ results: results.institutions });
+      res
+        .status(200)
+        .json({ results: results.institutions, meta_data: results.meta_data });
     })
     .catch((err) => {
       next(err);

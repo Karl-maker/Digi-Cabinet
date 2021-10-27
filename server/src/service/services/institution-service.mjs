@@ -21,7 +21,7 @@ async function create(req) {
   //-----Save Institution-------
 
   // check if user email already exist--------------
-  if (await db.institution.findOne({ email: email.toLowerCase() })) {
+  if (await db.institution.exists({ info: { email: email.toLowerCase() } })) {
     throw {
       name: "AlreadyExist",
       message: {
@@ -60,7 +60,7 @@ async function getById(req) {
   var meta_data, institution;
 
   try {
-    institution = await db.institution.findOne(
+    institution = await db.institution.find(
       { _id: id },
       {
         __v: 0,
@@ -115,17 +115,12 @@ async function getAllByName(req) {
 
   try {
     institutions = await db.institution
-      .find(
-        { $or: [{ query }] },
-        {
-          __v: 0,
-        }
-      )
+      .find({ name: query.name })
       .limit(page_size)
       .skip(page_size * page)
       .sort(get_order); // get all
 
-    meta_data.amount = institution.length;
+    meta_data.amount = institutions.length;
   } catch (e) {
     throw { name: "NotFound", message: `${q} Not Found` };
   }

@@ -87,9 +87,7 @@ async function getAllByName(req) {
   }
 
   if (q) {
-    query.first_name = { $regex: `${q}`, $options: `i` };
-    query.last_name = { $regex: `${q}`, $options: `i` };
-    query.middle_name = { $regex: `${q}`, $options: `i` };
+    query = { $regex: `${q}`, $options: `i` };
   } else {
     throw { name: "NotFound", message: "No Students" };
   }
@@ -97,7 +95,7 @@ async function getAllByName(req) {
   try {
     students = await db.student
       .find(
-        { $or: [{ query }] },
+        { $or: [{ first_name: query }, { last_name: query }] },
         {
           __v: 0,
         }
@@ -127,7 +125,7 @@ async function getById(req) {
   //Get User's Association
 
   try {
-    student = await db.student.findOne(
+    student = await db.student.find(
       { _id: id },
       {
         __v: 0,

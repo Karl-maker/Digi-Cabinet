@@ -1,5 +1,6 @@
 import getConfig from "../../config/config";
 import Link from "next/link";
+import { capitalizeFirstLetter } from "../../utils/tools/characterManipulation";
 
 const config = getConfig();
 
@@ -13,7 +14,9 @@ const ListStudentProfiles = ({ object, displayId }) => {
         <div style={{ display: "flex" }}>
           <img src={`${config.api.BASE_URL}${d.profile_picture} `} />
           <div className="info">
-            <h4>{`${d.first_name} ${d.last_name}`}</h4>
+            <h4>{`${capitalizeFirstLetter(
+              d.first_name
+            )} ${capitalizeFirstLetter(d.last_name)}`}</h4>
           </div>
         </div>
       </li>

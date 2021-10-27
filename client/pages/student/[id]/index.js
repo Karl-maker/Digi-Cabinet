@@ -20,6 +20,9 @@ const Student = () => {
   const [error, setError] = useState({});
 
   useEffect(async () => {
+    if (!id) {
+      return;
+    }
     const results = await fetchAPI(`api/student/${id}`, {
       method: "get",
       header: { "Context-Type": "application/json" },
@@ -32,14 +35,15 @@ const Student = () => {
       });
 
     if ((await results.status) !== 200) {
-      setError(await results);
+      setError(await results.json());
     } else {
-      var res = await results;
-      res.student.created_at = new Date(res.student.created_at);
-      setStudent(res.student);
+      var response = await results.json();
+      var res = response.results[0];
+      res.created_at = new Date(res.created_at);
+      setStudent(res);
       setIsLoading(false);
     }
-  }, []);
+  }, [id]);
 
   return (
     <div>

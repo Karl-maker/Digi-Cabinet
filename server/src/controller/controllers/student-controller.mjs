@@ -17,7 +17,7 @@ function getStudentById(req, res, next) {
   service.student
     .getById(req)
     .then((results) => {
-      res.status(200).json({ results: results.user });
+      res.status(200).json({ results: results.student });
     })
     .catch((err) => {
       next(err);

@@ -16,7 +16,7 @@ async function fetchAPI(url, { method, body, header }) {
     body: body,
   });
 
-  return await res.json();
+  return res;
 }
 
 export { fetchAPI };

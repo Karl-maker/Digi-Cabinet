@@ -6,7 +6,7 @@ import getConfig from "../../../config/config";
 import { MdVerified } from "react-icons/md";
 import ClipLoader from "react-spinners/ClipLoader";
 import DisplayUnknownObject from "../../../utils/tools/displayUnknownObject";
-import { capitalizeFirstLetter } from "../../../utils/tools/characterManipulation";
+import { capitalizeEveryFirstLetter } from "../../../utils/tools/characterManipulation";
 
 const config = getConfig();
 
@@ -19,7 +19,14 @@ const Institution = () => {
   const [error, setError] = useState({});
 
   useEffect(async () => {
-    const results = await fetchAPI(`api/institution/${id}`, { method: "get" })
+    if (!id) {
+      return;
+    }
+    const results = await fetchAPI(`api/institution/${router.query.id}`, {
+      method: "get",
+      header: { "Content-Type": "application/json" },
+      body: null,
+    })
       .then((results) => {
         return results;
       })
@@ -28,16 +35,15 @@ const Institution = () => {
       });
 
     if ((await results.status) !== 200) {
-      setError(await results);
+      setError(await results.json());
     } else {
-      var res = await results;
-      res.institution.registered_date = new Date(
-        res.institution.registered_date
-      );
-      setInstitution(res.institution);
+      var response = await results.json();
+      var res = response.results[0];
+      res.registered_date = new Date(res.registered_date);
+      setInstitution(res);
       setIsLoading(false);
     }
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -45,7 +51,7 @@ const Institution = () => {
         <title>Digi Cabinet | Institution</title>
       </Head>
       <div className="main-container">
-        <h2>Institution</h2>
+        <h2>Institution </h2>
         {!isLoading ? (
           <div className="container primary">
             <div className="institution-header">
@@ -58,7 +64,7 @@ const Institution = () => {
                   }}
                 >
                   <h3 style={{ marginRight: "0.8em" }}>
-                    {capitalizeFirstLetter(institution.name)}
+                    {capitalizeEveryFirstLetter(institution.name)}
                   </h3>
                   {institution.verified ? (
                     <MdVerified style={{ color: "#74b9ff" }} />

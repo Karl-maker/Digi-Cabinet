@@ -270,7 +270,7 @@ hr {
 
 .search-area {
   text-align: center;
-  width: 30%;
+  width: 40%;
   margin: 10em auto;
 }
 
@@ -291,6 +291,11 @@ hr {
 .list-profile {
   display: flex;
   height: 4em;
+  opacity: 0.5;
+}
+
+.list-profile:hover {
+  opacity: 1;
 }
 
 .scroll-list {

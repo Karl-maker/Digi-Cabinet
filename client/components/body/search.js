@@ -52,7 +52,7 @@ export default () => {
         query = `api/institutions?page_size=${PAGESIZE}&page_number=${PAGENUMBER}&q=${searchField}`;
       }
 
-      setInsituteList(await getData(query));
+      setInstituteList(await getData(query));
     } else if (targetState.value === "students") {
       if (queryState.value === "by_id") {
         query = `api/student/${searchField}`;
@@ -78,8 +78,9 @@ export default () => {
       header: { "Content-Type": "application/json" },
       body: null,
     })
-      .then((results) => {
-        return results.results;
+      .then(async (results) => {
+        const res = await results.json();
+        return res.results;
       })
       .catch((err) => {
         console.log(err);

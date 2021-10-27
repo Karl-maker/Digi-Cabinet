@@ -52,9 +52,7 @@ async function getAllByName(req) {
   };
 
   if (q) {
-    query.first_name = { $regex: `${q}`, $options: `i` };
-    query.last_name = { $regex: `${q}`, $options: `i` };
-    query.middle_name = { $regex: `${q}`, $options: `i` };
+    query = { $regex: `${q}`, $options: `i` };
   } else {
     throw { name: "NotFound", message: "No Users" };
   }
@@ -62,7 +60,9 @@ async function getAllByName(req) {
   try {
     users = await db.user
       .find(
-        { first_name: query.first_name },
+        {
+          $or: [{ first_name: query }, { last_name: query }, { email: query }],
+        },
         {
           is_confirmed: 0,
           use_email_notification: 0,
@@ -91,7 +91,7 @@ async function getByID(req) {
   //... Check in db if not found
 
   try {
-    user = await db.user.findOne(
+    user = await db.user.find(
       { _id: id },
       {
         is_confirmed: 0,
