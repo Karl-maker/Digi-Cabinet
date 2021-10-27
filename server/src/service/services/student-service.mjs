@@ -91,7 +91,7 @@ async function getAllByName(req) {
     query.last_name = { $regex: `${q}`, $options: `i` };
     query.middle_name = { $regex: `${q}`, $options: `i` };
   } else {
-    throw { name: "NotFound", message: "No Institutions" };
+    throw { name: "NotFound", message: "No Students" };
   }
 
   try {

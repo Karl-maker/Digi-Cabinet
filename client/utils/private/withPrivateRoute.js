@@ -1,46 +1,33 @@
-import React from "react";
+import { useContext } from "react";
 import Router from "next/router";
 import { isLoggedIn } from "../../api/auth";
+import { AccountContext } from "../../components/state-machines/authStateProvider";
+import { useActor } from "@xstate/react";
 
 const login = "/login?redirected=true"; // Define your login route address.
-
-const checkUserAuthentication = async () => {
-  //1. Check Local/Session Storage for Access OR Refresh Token
-  //2. Try to get Current User ID
-
-  var auth = false;
-  const results = await isLoggedIn()
-    .then((results) => {
-      auth = true;
-      return results;
-    })
-    .catch((err) => {
-      return null;
-    });
-
-  return { auth: auth, user: results };
-};
 
 export default (WrappedComponent) => {
   const hocComponent = ({ ...props }) => <WrappedComponent {...props} />;
 
-  hocComponent.getInitialProps = async (context) => {
-    const userAuth = await checkUserAuthentication();
-
+  hocComponent.getInitialProps = async (context_data) => {
+    const data = useContext(AccountContext);
+    const [state] = useActor(data.authService);
+    const { info: context } = state;
+    const userAuth = state.matches("private");
     // Are you an authorized user or not?
-    if (!userAuth?.auth) {
+    if (!userAuth) {
       // Handle server-side and client-side rendering.
-      if (context.res) {
-        context.res?.writeHead(302, {
+      if (context_data.res) {
+        context_data.res?.writeHead(302, {
           Location: login,
         });
-        context.res?.end();
+        context_data.res?.end();
       } else {
         Router.replace(login);
       }
     } else if (WrappedComponent.getInitialProps) {
       const wrappedProps = await WrappedComponent.getInitialProps({
-        ...context,
+        ...context_data,
         auth: userAuth,
       });
       return { ...wrappedProps, userAuth };

@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Search from "../components/body/search";
 
 const Home = () => {
   return (
@@ -6,7 +7,11 @@ const Home = () => {
       <Head>
         <title>Digi Cabinet</title>
       </Head>
-      <main></main>
+      <main>
+        <div className="search-area">
+          <Search />
+        </div>
+      </main>
     </div>
   );
 };

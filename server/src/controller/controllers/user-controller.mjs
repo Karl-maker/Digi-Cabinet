@@ -18,7 +18,7 @@ function searchUsers(req, res, next) {
     .then((results) => {
       res
         .status(200)
-        .json({ users: results.users, meta_data: results.meta_data });
+        .json({ results: results.users, meta_data: results.meta_data });
     })
     .catch((err) => {
       next(err);
@@ -42,7 +42,7 @@ function getUserById(req, res, next) {
     .then((results) => {
       res
         .status(200)
-        .json({ user: results.user, meta_data: results.meta_data });
+        .json({ results: results.user, meta_data: results.meta_data });
     })
     .catch((err) => {
       next(err);

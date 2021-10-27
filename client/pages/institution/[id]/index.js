@@ -28,9 +28,9 @@ const Institution = () => {
       });
 
     if ((await results.status) !== 200) {
-      setError(await results.json());
+      setError(await results);
     } else {
-      var res = await results.json();
+      var res = await results;
       res.institution.registered_date = new Date(
         res.institution.registered_date
       );

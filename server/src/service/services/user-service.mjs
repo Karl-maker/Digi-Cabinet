@@ -62,7 +62,7 @@ async function getAllByName(req) {
   try {
     users = await db.user
       .find(
-        { $or: [{ query }] },
+        { first_name: query.first_name },
         {
           is_confirmed: 0,
           use_email_notification: 0,
